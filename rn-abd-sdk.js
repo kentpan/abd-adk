@@ -23,19 +23,22 @@ if (!NativeModules[SdkApi[Platform.OS]]) {
         getInfo: () => {},
         report: () => {},
     }
-    console.log(Platform.OS + SdkApi[Platform.OS] + ' API call failed!');
+    console.log(Platform.OS + ': ' + SdkApi[Platform.OS] + ' API call failed!');
 } else {
   var RnSdk = {
     getInfo: (url, data, cb) => {
+      console.log(Platform.OS + ': getInfo method调取成功!!!');
       return fetch(url)
         .then((response) => response.json())
         .then((responseData) => {
+          console.log(Platform.OS + ': ' + url + ' 请求回调成功!!!');
           return cb(responseData);
         })
         .done();
     },
     report: (act, args) => {
       let os = Platform.OS;
+          console.log(os + ': report method调取成功!!!');
       switch (os) {
         case 'ios':
           return RnSdk._alert(os);
